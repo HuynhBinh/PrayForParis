@@ -71,11 +71,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         Intent returnIntent = new Intent();
-        if (isShowAd) {
+//        if (isShowAd) {
             setResult(Activity.RESULT_OK, returnIntent);
-        } else {
-            setResult(Activity.RESULT_CANCELED, returnIntent);
-        }
+//        } else {
+//            setResult(Activity.RESULT_CANCELED, returnIntent);
+//        }
         finish();
     }
 
@@ -152,11 +152,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Bitmap doInBackground(Bitmap... params) {
             Bitmap bitmap = params[0];
-            int screenWidth = (int) (getScreenWidth() * 1.2);
+            int screenWidth = getScreenWidth();
             if (bitmap.getWidth() > screenWidth) {
                 bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth, screenWidth, false);
             }
-            bmResult = doColorFilterFrance(grayScale(bitmap));
+            bmResult = doColorFilterFrance(bitmap);
 //            bmResult = doColorFilterFrance(params[0]);
             return bmResult;
         }
@@ -197,45 +197,66 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         // scan through all pixels
         for (int x = 0; x < eachWidth; ++x) {
             for (int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
+
+                pixelColor = src.getPixel(x, y);
+
+                A1 = (int) (Color.alpha(pixelColor) * 0.9);
+                R1 = Color.red(pixelColor);
+                G1 = Color.green(pixelColor);
+                B1 = Color.blue(pixelColor);
+
+                R1 = G1 = B1 = (int) (R1 * GSRed + G1 * GSGreen + B1 * GSBlue);
+
+
                 // apply filtering on each channel R, G, B
-                A = (int) (Color.alpha(pixel) * 0.8);
-                R = (int) (Color.red(pixel) * 0.1);
-                G = (int) (Color.green(pixel) * 0.3);
-                B = (int) (Color.blue(pixel) * 1);
+                A = (int) (A1 * 1);
+                R = (int) (R1 * 0.1);
+                G = (int) (G1 * 0.3);
+                B = (int) (B1 * 1);
 
                 // set new color pixel to output bitmap
                 bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+
+
+
+
+//                // get pixel color
+//                pixel = src.getPixel(x, y);
+//                // apply filtering on each channel R, G, B
+//                A = (int) (Color.alpha(pixel) * 0.8);
+//                R = (int) (Color.red(pixel) * 0.1);
+//                G = (int) (Color.green(pixel) * 0.3);
+//                B = (int) (Color.blue(pixel) * 1);
+//
+//                // set new color pixel to output bitmap
+//                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
             }
         }
 
         for (int x = eachWidth; x < eachWidthx2; ++x) {
             for (int y = 0; y < height; ++y) {
 
-
                 pixelColor = src.getPixel(x, y);
 
-                A1 = (int) (Color.alpha(pixelColor) * 0.6);
+                A1 = (int) (Color.alpha(pixelColor) * 0.9);
                 R1 = Color.red(pixelColor);
                 G1 = Color.green(pixelColor);
                 B1 = Color.blue(pixelColor);
 
-
                 R1 = G1 = B1 = (int) (R1 * GSRed + G1 * GSGreen + B1 * GSBlue);
+
+
+
+//                A = (int) (A1 * 0.6);
+//                R = R1;
+//                G = G1;
+//                B = B1;
+//
+//
+//                R = G = B = (int) (R * GSRed + G * GSGreen + B * GSBlue);
 
                 bmOut.setPixel(x, y, Color.argb(A1, R1, G1, B1));
 
-               /* // get pixel color
-                pixel = src.getPixel(x, y);
-                // apply filtering on each channel R, G, B
-                A = Color.alpha(pixel);
-                R = (int) (Color.red(pixel) * 0.6);
-                G = (int) (Color.green(pixel) * 0.6);
-                B = (int) (Color.blue(pixel) * 0.6);
-
-                // set new color pixel to output bitmap
-                bmOut.setPixel(x, y, Color.argb(A, R, G, B));*/
 
 
             }
@@ -244,13 +265,23 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
         for (int x = eachWidthx2; x < eachWidthx3; ++x) {
             for (int y = 0; y < height; ++y) {
-                // get pixel color
-                pixel = src.getPixel(x, y);
-                // apply filtering on each channel R, G, B
-                A = (int) (Color.alpha(pixel) * 0.8);
-                R = (int) (Color.red(pixel) * 1);
-                G = (int) (Color.green(pixel) * 0.1);
-                B = (int) (Color.blue(pixel) * 0.3);
+
+
+                pixelColor = src.getPixel(x, y);
+
+                A1 = (int) (Color.alpha(pixelColor) * 0.9);
+                R1 = Color.red(pixelColor);
+                G1 = Color.green(pixelColor);
+                B1 = Color.blue(pixelColor);
+
+                R1 = G1 = B1 = (int) (R1 * GSRed + G1 * GSGreen + B1 * GSBlue);
+
+
+
+                A = (int) (A1 * 1);
+                R = (int) (R1 * 1);
+                G = (int) (G1 * 0.1);
+                B = (int) (B1 * 0.3);
                 // set new color pixel to output bitmap
                 bmOut.setPixel(x, y, Color.argb(A, R, G, B));
             }
