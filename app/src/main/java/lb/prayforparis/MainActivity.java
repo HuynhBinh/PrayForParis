@@ -14,6 +14,8 @@ import com.google.android.gms.ads.InterstitialAd;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
+    private int REQUEST_CODE = 123;
+
     private LinearLayout lnlFromGallery;
     private LinearLayout lnlRateApp;
     private LinearLayout lnlShareApp;
@@ -21,27 +23,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private InterstitialAd interstitial;
     protected AdRequest adRequest;
 
-    public static boolean isShowAd;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initialAdmob();
-        isShowAd = false;
 
         initView();
         initData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (isShowAd) {
-            showFullAd();
-            isShowAd = false;
-        }
     }
 
     private void initView() {
@@ -61,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.lnlFromGallery:
                 Intent intentImage = new Intent(this, ImageActivity.class);
-                startActivity(intentImage);
+                startActivityForResult(intentImage, REQUEST_CODE);
                 break;
             case R.id.lnlRateApp:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName().toString())));
@@ -69,6 +59,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.lnlShareApp:
                 shareTextFacebook("https://play.google.com/store/apps/details?id=" + getPackageName().toString());
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            showFullAd();
         }
     }
 
