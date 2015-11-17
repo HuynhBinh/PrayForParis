@@ -1,0 +1,27 @@
+<resources>
+    <dimen name="actionbar_height">80dp</dimen>
+    <dimen name="ac_imv_size">44dp</dimen>
+    <dimen name="size_ic_menu">200dp</dimen>
+    <dimen name="height_row_deal">400dp</dimen>
+    <dimen name="height_profile_menu">510dp</dimen>
+    <dimen name="height_profile_setting">290dp</dimen>
+    <dimen name="height_avatar">210dp</dimen>
+    <dimen name="time_circle">90dp</dimen>
+    <dimen name="time_circle_stoke">10dp</dimen>
+    <dimen name="tabs_height">80dp</dimen>
+    <dimen name="tabs_trip">8dp</dimen>
+    <dimen name="height_qr_code">530dp</dimen>
+    <dimen name="camera_padding">95dp</dimen>
+    <dimen name="height_merchant_picture">475dp</dimen>
+    <dimen name="height_merchant_picture_list">160dp</dimen>
+    <dimen name="discount_num_size">44dp</dimen>
+
+    <dimen name="txt_8sp">16sp</dimen>
+    <dimen name="txt_12sp">18sp</dimen>
+    <dimen name="txt_15sp">21sp</dimen>
+    <dimen name="txt_18sp">24sp</dimen>
+    <dimen name="txt_22sp">28sp</dimen>
+    <dimen name="txt_26sp">32sp</dimen>
+    <dimen name="txt_32sp">38sp</dimen>
+    <dimen name="txt_title">26sp</dimen>
+</resources>
