@@ -1,5 +1,6 @@
 package lb.prayforparis;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -38,10 +39,14 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     private Toast toast;
     private ProgressDialog progress_dialog;
 
+    private boolean isShowAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
+
+        isShowAd = false;
 
         initView();
         initData();
@@ -64,6 +69,17 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        if (isShowAd) {
+            setResult(Activity.RESULT_OK, returnIntent);
+        } else {
+            setResult(Activity.RESULT_CANCELED, returnIntent);
+        }
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lnlSave:
@@ -72,7 +88,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                     filename = saveBitmapToSDCard(bmResult);
                     hideProgressDialog();
                     showToast("Save at:" + filename);
-                    MainActivity.isShowAd = true;
+                    isShowAd = true;
                 } else {
                     showToast("Saved");
                 }
@@ -84,7 +100,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 }
                 shareImage(filename);
                 hideProgressDialog();
-                MainActivity.isShowAd = true;
+                isShowAd = true;
                 break;
         }
     }
