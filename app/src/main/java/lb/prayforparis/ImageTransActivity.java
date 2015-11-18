@@ -190,8 +190,6 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
 
         // Make sure you put example png image named myImage.png in your
         // directory
-        String imagePath = Environment.getExternalStorageDirectory()
-                + "/loading.png";
 
         File imageFileToShare = new File(path);
 
