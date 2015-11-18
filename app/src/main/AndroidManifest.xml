@@ -27,6 +27,10 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".ImageTransActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait" />
         <activity

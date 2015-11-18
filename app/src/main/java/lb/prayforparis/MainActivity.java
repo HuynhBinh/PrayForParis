@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lnlFromGallery:
-                Intent intentImage = new Intent(this, ImageActivity.class);
+                Intent intentImage = new Intent(this, ImageTransActivity.class);
                 startActivityForResult(intentImage, REQUEST_CODE);
                 break;
             case R.id.lnlRateApp:
