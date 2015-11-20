@@ -2,6 +2,7 @@ package lb.prayforparis;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -165,7 +166,10 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
-            return file.getPath();
+            ContentValues image = new ContentValues();
+            image.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
+            getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
+            return file.getAbsolutePath();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
