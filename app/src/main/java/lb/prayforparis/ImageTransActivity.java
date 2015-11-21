@@ -81,24 +81,12 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lnlSave:
-                if (filename == null) {
-                    lnlSave.setClickable(false);
-                    filename = saveBitmapToSDCard(convertViewToBitmap());
-                    lnlSave.setClickable(true);
-                    showToast("Save at:" + filename);
-                    isShowAd = true;
-                } else {
-                    showToast("Saved");
-                }
+                SaveImageAsync saveImageAsync = new SaveImageAsync();
+                saveImageAsync.execute();
                 break;
             case R.id.lnlShare:
-                if (filename == null) {
-                    lnlShare.setClickable(false);
-                    filename = saveBitmapToSDCard(convertViewToBitmap());
-                    lnlShare.setClickable(true);
-                }
-                shareImage(filename);
-                isShowAd = true;
+                ShareImageAsync shareImageAsync = new ShareImageAsync();
+                shareImageAsync.execute();
                 break;
         }
     }
@@ -141,18 +129,64 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private class SaveImageAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (filename == null) {
+                Bitmap bitmap = convertViewToBitmap();
+                filename = saveBitmapToSDCard(bitmap);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            hideProgressDialog();
+            showToast("Saved");
+            isShowAd = true;
+        }
+    }
+
+    private class ShareImageAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (filename == null) {
+                Bitmap bitmap = convertViewToBitmap();
+                filename = saveBitmapToSDCard(bitmap);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            hideProgressDialog();
+            shareImage(filename);
+            isShowAd = true;
+        }
+    }
+
     private Bitmap convertViewToBitmap() {
         RelativeLayout rltImage = (RelativeLayout) findViewById(R.id.rltImage);
         rltImage.setDrawingCacheEnabled(true);
         rltImage.buildDrawingCache();
         return rltImage.getDrawingCache();
     }
-
-
     private String saveBitmapToSDCard(Bitmap bitmap) {
-        String imageName = "PrayForParis_" + System.currentTimeMillis();
+        String imageName = "christ" + System.currentTimeMillis();
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/PrayForParisTrans");
+        File myDir = new File(root + "/christ");
 
         if (!myDir.exists()) {
             myDir.mkdirs();
@@ -177,6 +211,8 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
 
         }
     }
+
+
 
     private int getScreenWidth() {
         DisplayMetrics metrics = new DisplayMetrics();
