@@ -100,6 +100,15 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        deleteTempFile();
+        if (bmImvMain != null) {
+            bmImvMain.recycle();
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lnlSave:
