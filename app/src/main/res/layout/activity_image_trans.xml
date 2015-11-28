@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gesture-image="http://schemas.polites.com/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
@@ -11,12 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <ImageView
+        <com.polites.android.GestureImageView
             android:id="@+id/imvMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true" />
+            android:scaleType="centerInside"
+            gesture-image:max-scale="10.0"
+            gesture-image:min-scale="1.0" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -32,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -46,6 +48,7 @@
                 android:id="@+id/lnlSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_white"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_5dp">
@@ -74,9 +77,42 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/lnlRotate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/dm_5dp">
+
+                <ImageView
+                    android:layout_width="@dimen/ac_imv_size"
+                    android:layout_height="@dimen/ac_imv_size"
+                    android:src="@drawable/rotate" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Rotate"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/txt_15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:id="@+id/lnlShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_white"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_5dp">

@@ -1,1 +1,1 @@
-include ':app', ':libCrop'
+include ':app', ':libCrop', ':gestureimageview'

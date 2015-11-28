@@ -16,6 +16,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private int REQUEST_CODE = 123;
 
+    private LinearLayout lnlFromCamera;
     private LinearLayout lnlFromGallery;
     private LinearLayout lnlRateApp;
     private LinearLayout lnlShareApp;
@@ -35,12 +36,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     private void initView() {
+        lnlFromCamera = (LinearLayout) findViewById(R.id.lnlFromCamera);
         lnlFromGallery = (LinearLayout) findViewById(R.id.lnlFromGallery);
         lnlRateApp = (LinearLayout) findViewById(R.id.lnlRateApp);
         lnlShareApp = (LinearLayout) findViewById(R.id.lnlShareApp);
     }
 
     private void initData() {
+        lnlFromCamera.setOnClickListener(this);
         lnlFromGallery.setOnClickListener(this);
         lnlRateApp.setOnClickListener(this);
         lnlShareApp.setOnClickListener(this);
@@ -49,6 +52,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.lnlFromCamera:
+                Intent intentCamera = new Intent(this, ImageTransActivity.class);
+                intentCamera.putExtra("camera", true);
+                startActivityForResult(intentCamera, REQUEST_CODE);
+                break;
             case R.id.lnlFromGallery:
                 Intent intentImage = new Intent(this, ImageTransActivity.class);
                 startActivityForResult(intentImage, REQUEST_CODE);
@@ -84,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         adRequest = new AdRequest.Builder().build();
 
         interstitial = new InterstitialAd(this);
-        interstitial.setAdUnitId("ca-app-pub-6956931160448072/2400734747");
+        interstitial.setAdUnitId("ca-app-pub-6956931160448072/7189551949");
 
         interstitial.setAdListener(new AdListener() {
             @Override

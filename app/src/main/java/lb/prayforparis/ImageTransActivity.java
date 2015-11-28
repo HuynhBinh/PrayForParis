@@ -2,10 +2,13 @@ package lb.prayforparis;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.polites.android.GestureImageView;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -30,15 +34,21 @@ import java.io.FileOutputStream;
  */
 public class ImageTransActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageView imvMain;
+    private int CAMERA_REQUEST = 123;
+    private int PICK_IMAGE_REQUEST = 124;
+
+    private GestureImageView imvMain;
     private LinearLayout lnlSave;
     private LinearLayout lnlShare;
+    private LinearLayout lnlRotate;
 
     private String filename;
     private Toast toast;
     private ProgressDialog progress_dialog;
 
     private boolean isShowAd;
+
+    private Bitmap bmImvMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +62,30 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        imvMain = (ImageView) findViewById(R.id.imvMain);
+        imvMain = (GestureImageView) findViewById(R.id.imvMain);
         lnlSave = (LinearLayout) findViewById(R.id.lnlSave);
         lnlShare = (LinearLayout) findViewById(R.id.lnlShare);
+        lnlRotate = (LinearLayout) findViewById(R.id.lnlRotate);
 
         lnlSave.setOnClickListener(this);
         lnlShare.setOnClickListener(this);
+        lnlRotate.setOnClickListener(this);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imvMain.getLayoutParams();
+        layoutParams.width = getScreenWidth();
+        layoutParams.height = getScreenWidth();
+        imvMain.setLayoutParams(layoutParams);
+        imvMain.setImageLevel(0);
     }
 
     private void initData() {
         filename = null;
 
-        openImagePicker();
+        if (getIntent().hasExtra("camera")) {
+            openCamera();
+        } else {
+            pickImage(PICK_IMAGE_REQUEST);
+        }
     }
 
     @Override
@@ -88,6 +110,10 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
                 ShareImageAsync shareImageAsync = new ShareImageAsync();
                 shareImageAsync.execute();
                 break;
+            case R.id.lnlRotate:
+                RotateImageAsync rotateImageAsync = new RotateImageAsync();
+                rotateImageAsync.execute();
+                break;
         }
     }
 
@@ -95,14 +121,56 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
         Crop.pickImage(this);
     }
 
+    private void pickImage(int requestCode) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
+        try {
+            startActivityForResult(intent, requestCode);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, com.soundcloud.android.crop.R.string.crop__pick_error, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, createTempFile());
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
-            beginCrop(data.getData());
-        } else if (requestCode == Crop.REQUEST_CROP && resultCode == RESULT_OK) {
-            handleCrop(resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            try {
+                bmImvMain = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                imvMain.setImageBitmap(bmImvMain);
+                showHint();
+            } catch (Exception e) {
+                finish();
+            }
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Uri uri = getTempFile();
+            try {
+                bmImvMain = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                imvMain.setImageBitmap(bmImvMain);
+                showHint();
+            } catch (Exception e) {
+                finish();
+            }
         } else {
             finish();
+        }
+    }
+
+    private void showHint() {
+        SharedPreferences preferences = getSharedPreferences("run_app", MODE_PRIVATE);
+        boolean isFirst = preferences.getBoolean("isFirst", true);
+        if (isFirst) {
+            Intent intentHint = new Intent(this, HintActivity.class);
+            startActivity(intentHint);
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("isFirst", false);
+            editor.commit();
         }
     }
 
@@ -177,12 +245,40 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private class RotateImageAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (bmImvMain != null) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                bmImvMain = Bitmap.createBitmap(bmImvMain, 0, 0, bmImvMain.getWidth(), bmImvMain.getHeight(), matrix, true);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (bmImvMain != null) {
+                imvMain.setImageBitmap(bmImvMain);
+                filename = null;
+            }
+            hideProgressDialog();
+        }
+    }
+
     private Bitmap convertViewToBitmap() {
         RelativeLayout rltImage = (RelativeLayout) findViewById(R.id.rltImage);
         rltImage.setDrawingCacheEnabled(true);
         rltImage.buildDrawingCache();
         return rltImage.getDrawingCache();
     }
+
     private String saveBitmapToSDCard(Bitmap bitmap) {
         String imageName = "christ" + System.currentTimeMillis();
         String root = Environment.getExternalStorageDirectory().toString();
@@ -212,7 +308,55 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void deleteTempFile() {
+        String imageName = "temp";
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/temp");
 
+        if (!myDir.exists()) {
+            myDir.mkdirs();
+        }
+
+        String fname = imageName + ".jpg";
+        String fpath = myDir.getAbsolutePath() + "/" + fname;
+
+        File file = new File(fpath);
+        file.delete();
+
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(fpath))));
+    }
+
+    private Uri createTempFile() {
+        deleteTempFile();
+        String imageName = "temp";
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/temp");
+
+        if (!myDir.exists()) {
+            myDir.mkdirs();
+        }
+
+        String fname = imageName + ".jpg";
+        File file = new File(myDir, fname);
+        Uri uri = Uri.fromFile(file);
+
+//        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+
+        return uri;
+    }
+
+    private Uri getTempFile() {
+        String imageName = "temp";
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/temp");
+        String fname = imageName + ".jpg";
+        File file = new File(myDir, fname);
+        Uri uri = Uri.fromFile(file);
+
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+
+        return uri;
+    }
 
     private int getScreenWidth() {
         DisplayMetrics metrics = new DisplayMetrics();

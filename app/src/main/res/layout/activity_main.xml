@@ -6,25 +6,55 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/lnlFromGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/actionbar_height"
-            android:layout_height="@dimen/actionbar_height"
-            android:src="@drawable/get_image" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/lnlFromCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Get Picture"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/txt_18sp" />
+            android:background="@drawable/btn_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/actionbar_height"
+                android:layout_height="@dimen/actionbar_height"
+                android:src="@drawable/camera" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dm_10dp"
+                android:text="Take Picture"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/txt_18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnlFromGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_20dp"
+            android:background="@drawable/btn_bg"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/actionbar_height"
+                android:layout_height="@dimen/actionbar_height"
+                android:src="@drawable/get_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Get Picture"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/txt_18sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -45,6 +75,7 @@
                 android:id="@+id/lnlRateApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_5dp">
@@ -76,6 +107,7 @@
                 android:id="@+id/lnlShareApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="@dimen/dm_5dp">
