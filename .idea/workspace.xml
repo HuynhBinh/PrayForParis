@@ -39,14 +39,14 @@
       <file leaf-file-name="ImageTransActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/lb/prayforparis/ImageTransActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7866667">
-              <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.55333334">
+              <caret line="297" column="30" selection-start-line="297" selection-start-column="30" selection-end-line="297" selection-end-column="30" />
               <folding>
-                <element signature="e#3711#3712#0" expanded="true" />
-                <element signature="e#3747#3748#0" expanded="true" />
-                <element signature="e#4030#4083#0" expanded="true" />
-                <element signature="e#6831#6832#0" expanded="true" />
-                <element signature="e#6875#6876#0" expanded="true" />
+                <element signature="e#3759#3760#0" expanded="true" />
+                <element signature="e#3795#3796#0" expanded="true" />
+                <element signature="e#4078#4131#0" expanded="true" />
+                <element signature="e#6879#6880#0" expanded="true" />
+                <element signature="e#6923#6924#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3468,8 +3468,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="13" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3519,8 +3519,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="13" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3562,8 +3562,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="13" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3605,8 +3605,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="13" selection-start-line="125" selection-start-column="13" selection-end-line="125" selection-end-column="13" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3632,8 +3632,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3659,8 +3659,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
           <folding>
-            <element signature="e#4476#4477#0" expanded="true" />
-            <element signature="e#5297#5298#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#5345#5346#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3824,14 +3824,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://E:/AndroidSDK/extras/android/m2repository/com/android/support/appcompat-v7/22.2.1/appcompat-v7-22.2.1-sources.jar!/android/support/v7/app/AppCompatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
@@ -3840,16 +3832,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/lb/prayforparis/ImageTransActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7866667">
-          <caret line="108" column="5" selection-start-line="108" selection-start-column="5" selection-end-line="108" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.55333334">
+          <caret line="297" column="30" selection-start-line="297" selection-start-column="30" selection-end-line="297" selection-end-column="30" />
           <folding>
-            <element signature="e#3711#3712#0" expanded="true" />
-            <element signature="e#3747#3748#0" expanded="true" />
-            <element signature="e#4030#4083#0" expanded="true" />
-            <element signature="e#6831#6832#0" expanded="true" />
-            <element signature="e#6875#6876#0" expanded="true" />
+            <element signature="e#3759#3760#0" expanded="true" />
+            <element signature="e#3795#3796#0" expanded="true" />
+            <element signature="e#4078#4131#0" expanded="true" />
+            <element signature="e#6879#6880#0" expanded="true" />
+            <element signature="e#6923#6924#0" expanded="true" />
           </folding>
         </state>
       </provider>

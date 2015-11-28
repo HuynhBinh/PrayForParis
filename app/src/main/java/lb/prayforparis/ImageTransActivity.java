@@ -37,6 +37,8 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
     private int CAMERA_REQUEST = 123;
     private int PICK_IMAGE_REQUEST = 124;
 
+    private String NAME_PATH = "PrayForParis";
+
     private GestureImageView imvMain;
     private LinearLayout lnlSave;
     private LinearLayout lnlShare;
@@ -289,9 +291,9 @@ public class ImageTransActivity extends AppCompatActivity implements View.OnClic
     }
 
     private String saveBitmapToSDCard(Bitmap bitmap) {
-        String imageName = "christ" + System.currentTimeMillis();
+        String imageName = NAME_PATH + "_" + System.currentTimeMillis();
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/christ");
+        File myDir = new File(root + "/" + NAME_PATH);
 
         if (!myDir.exists()) {
             myDir.mkdirs();
